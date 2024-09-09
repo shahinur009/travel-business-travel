@@ -32,7 +32,7 @@ const CreateProduct = () => {
                 timer: 1500
             });
 
-            // Clear form fields after create product
+            // Clear form fields
             setName('');
             setTitle('');
             setDescription('');

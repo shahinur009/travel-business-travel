@@ -13,11 +13,10 @@ const ManageProduct = () => {
     axios('https://hotel.aotrek.net/api/auth/manage', {
         headers: { Authorization: `Bearer ${token}` },
     }).then(response => {
-        setProducts(response?.data?.categories); // Handle the successful response
-        // console.log(response?.data?.categories)
+        setProducts(response?.data?.categories); 
     })
         .catch(error => {
-            console.error('Error fetching data', error); // Handle any errors
+            console.error('Error fetching data', error); // Handle errors
         });;
 
     const handleDelete = async (id) => {

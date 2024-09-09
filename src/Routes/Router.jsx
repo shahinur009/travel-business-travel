@@ -23,7 +23,6 @@ const router = createBrowserRouter([
             {
                 path: "/create",
                 element: (
-                    // <CreateProduct />
                     <PrivateRoute>
                         <CreateProduct />
                     </PrivateRoute>
@@ -32,7 +31,6 @@ const router = createBrowserRouter([
             {
                 path: "/manage",
                 element: (
-                    // <ManageProduct />
                     <PrivateRoute>
                         <ManageProduct />
                     </PrivateRoute>
@@ -41,7 +39,6 @@ const router = createBrowserRouter([
             {
                 path: "/update/:id",
                 element: (
-                    // <UpdateProduct />
                     <PrivateRoute>
                         <UpdateProduct />
                     </PrivateRoute>
