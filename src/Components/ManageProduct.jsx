@@ -9,23 +9,16 @@ const ManageProduct = () => {
     const [products, setProducts] = useState([]);
     const { token } = useContext(AuthContext);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const res = await axios.get('https://hotel.aotrek.net/api/auth/manage', {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setProducts(res?.data);
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to fetch products!',
-                });
-            }
-        };
-        fetchProducts();
-    }, [token]);
+
+    axios('https://hotel.aotrek.net/api/auth/manage', {
+        headers: { Authorization: `Bearer ${token}` },
+    }).then(response => {
+        setProducts(response?.data?.categories); // Handle the successful response
+        // console.log(response?.data?.categories)
+    })
+        .catch(error => {
+            console.error('Error fetching data', error); // Handle any errors
+        });;
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -44,7 +37,8 @@ const ManageProduct = () => {
                     });
 
                     // Remove the deleted product from the state
-                    setProducts((prevProducts) => prevProducts.filter(product => product._id !== id));
+                    setProducts((prevProducts) => prevProducts.filter(product => product.id !== id));
+                    console.log(id)
 
                     Swal.fire({
                         position: 'top',
@@ -54,6 +48,7 @@ const ManageProduct = () => {
                         timer: 1500,
                     });
                 } catch (error) {
+                    console.log(error)
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -71,31 +66,36 @@ const ManageProduct = () => {
                 <table className="table-auto w-full text-center bg-white rounded-md shadow-md">
                     <thead className="bg-[#60da64] text-white">
                         <tr>
+                            <th className="p-3">Name</th>
                             <th className="p-3">Title</th>
                             <th className="p-3">Description</th>
                             <th className="p-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+
                         {products.map((product) => (
-                            <tr key={product?._id} className="border-b">
+
+                            <tr key={product?.id} className="border-b">
+                                <td className="p-3">{product?.name}</td>
                                 <td className="p-3">{product?.title}</td>
                                 <td className="p-3">{product?.description}</td>
                                 <td className="p-3">
                                     <div className="flex justify-center gap-4">
                                         <Link to='/create' className="btn btn-success">Create</Link>
-                                        <Link to={`/update/${product._id}`} className="btn btn-secondary">Update</Link>
+                                        <Link to={`/update/${product.id}`} className="btn btn-secondary">Update</Link>
                                         <button
                                             type="button"
                                             className="btn btn-error"
-                                            onClick={() => handleDelete(product._id)}
+                                            onClick={() => handleDelete(product.id)}
                                         >
                                             Delete
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-                        ))}
+                        ))
+                        }
                     </tbody>
                 </table>
             </div>

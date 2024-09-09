@@ -9,28 +9,21 @@ import { FaSpinner } from 'react-icons/fa';
 const UpdateProduct = () => {
     const [name, setName] = useState('');
     const [title, setTitle] = useState('');
+    const [loading, setLoading] = useState(false)
     const [description, setDescription] = useState('');
     const { id } = useParams();
     const { token } = useContext(AuthContext);
     // get data from manage API
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(`https://hotel.aotrek.net/api/auth/manage/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-                setName(res?.data?.name)
-                setTitle(res?.data?.title)
-                setDescription(res?.data?.description)
-
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Product get failed!',
-                });
-            }
-        }
-        fetchData()
-    }, [token, id])
+    axios(`https://hotel.aotrek.net/api/auth/manage/${id}`,
+         {
+        headers: { Authorization: `Bearer ${token}` },
+    }).then(response => {
+        // setProducts(response?.data?.categories); // Handle the successful response
+        console.log(response?.data?.categories.id)
+    })
+        .catch(error => {
+            console.error('Error fetching data', error); // Handle any errors
+        });;
     // Update data API here:
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -91,7 +84,7 @@ const UpdateProduct = () => {
                                 placeholder="Your Description"
                                 className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 border-2 focus:dark:border-violet-600"
                                 onChange={(e) => setDescription(e.target.value)}
-                                rows="4"  // Set the number of rows as needed
+                                rows="3"  // Set the number of rows as needed
                             />
                         </div>
 

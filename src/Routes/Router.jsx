@@ -23,28 +23,28 @@ const router = createBrowserRouter([
             {
                 path: "/create",
                 element: (
-                    <CreateProduct />
-                    // <PrivateRoute>
-                    //     <CreateProduct />
-                    // </PrivateRoute>
+                    // <CreateProduct />
+                    <PrivateRoute>
+                        <CreateProduct />
+                    </PrivateRoute>
                 ),
             },
             {
                 path: "/manage",
                 element: (
-                    <ManageProduct />
-                    // <PrivateRoute>
-                    //     <ManageProduct />
-                    // </PrivateRoute>
+                    // <ManageProduct />
+                    <PrivateRoute>
+                        <ManageProduct />
+                    </PrivateRoute>
                 ),
             },
             {
                 path: "/update/:id",
                 element: (
-                    <UpdateProduct />
-                    // <PrivateRoute>
-                    //     <UpdateProduct />
-                    // </PrivateRoute>
+                    // <UpdateProduct />
+                    <PrivateRoute>
+                        <UpdateProduct />
+                    </PrivateRoute>
                 ),
             },
         ]

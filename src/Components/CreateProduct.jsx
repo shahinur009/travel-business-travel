@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import bg from '../../public/Login-background.jpg';
 import { FaSpinner } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
     const [name, setName] = useState('');
@@ -11,6 +12,7 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const { token } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -34,6 +36,7 @@ const CreateProduct = () => {
             setName('');
             setTitle('');
             setDescription('');
+            navigate('/manage')
         } catch (error) {
             Swal.fire({
                 icon: 'error',
