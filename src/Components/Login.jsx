@@ -10,10 +10,10 @@ import Swal from "sweetalert2";
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
-    const { login } = useContext(AuthContext);
+    const { login, isAuthenticated } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Use useNavigate hook
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const Login = () => {
         try {
             const res = await axios.post('https://hotel.aotrek.net/api/auth/login', { email, password });
             if (res.data && res.data.token) {
-                login(res.data.token);
+                login(res.data.token) && isAuthenticated;
                 Swal.fire({
                     position: 'top',
                     icon: 'success',
@@ -29,7 +29,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    navigate('/manage');
+                    navigate('/home');
                 });
 
             }

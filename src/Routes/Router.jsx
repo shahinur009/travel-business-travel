@@ -5,6 +5,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import CreateProduct from "../Components/CreateProduct";
 import ManageProduct from "../Components/ManageProduct";
 import UpdateProduct from "../Components/UpdateProduct";
+import Home from "../Components/Home";
 
 const router = createBrowserRouter([
     {
@@ -16,27 +17,34 @@ const router = createBrowserRouter([
                 element: <Login />
             },
             {
+                path: '/home',
+                element: <Home />
+            },
+            {
                 path: "/create",
                 element: (
-                    <PrivateRoute>
-                        <CreateProduct />
-                    </PrivateRoute>
+                    <CreateProduct />
+                    // <PrivateRoute>
+                    //     <CreateProduct />
+                    // </PrivateRoute>
                 ),
             },
             {
                 path: "/manage",
                 element: (
-                    <PrivateRoute>
-                        <ManageProduct />
-                    </PrivateRoute>
+                    <ManageProduct />
+                    // <PrivateRoute>
+                    //     <ManageProduct />
+                    // </PrivateRoute>
                 ),
             },
             {
                 path: "/update/:id",
                 element: (
-                    <PrivateRoute>
-                        <UpdateProduct />
-                    </PrivateRoute>
+                    <UpdateProduct />
+                    // <PrivateRoute>
+                    //     <UpdateProduct />
+                    // </PrivateRoute>
                 ),
             },
         ]
